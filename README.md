@@ -1,16 +1,53 @@
 # Vue 3 + TypeScript + Vite
+## 一、创建vite+vue项目
+```
+npm init vite
+√ Project name: ... vite-vue3-electron-example  --项目名称
+√ Select a framework: » Vue --选择vue模板
+√ Select a variant: » TypeScript --选择TypeScript脚本语言
+```
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 二、安装依赖并运行
+```
+  cd vite-vue3-electron-example
+  npm install
+  npm run dev
+```
+---
+通过上面两步就完成了一个vite+vue3+typeScript项目的初始化。
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## 三、集成electron
+1. 安装electron依赖
+```
+ npm add --dev electron
+```
+以下两个文件参考[官网快速入门教程](https://www.electronjs.org/zh/docs/latest/tutorial/quick-start)
 
-## Type Support For `.vue` Imports in TS
+2. 添加electron入口文件 [main.js](main.js)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+3. 添加electron预加载文件[preload.js](preload.js)
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+4. 修改[package.json](package.json)
+```
+删除属性："type": "module"
+添加属性："main": "main.js"
+scripts里增加脚本： "electron:serve": "electron ." 
+```
+5. 修改[main.js](main.js)
+```
+mainWindow.loadFile('index')
+换成：
+mainWindow.loadURL('http://127.0.0.1:5173/')
+```
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## 四、运行项目
+1. 启动vite
+```
+npx vite
+```
+2. (新启一个终端)启动electron
+```
+npm run electron:serve
+```
+恭喜您，第一个electron启动成功！
