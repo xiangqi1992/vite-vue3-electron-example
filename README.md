@@ -18,10 +18,11 @@ npm init vite
 
 
 ## 三、集成electron
-1. 安装electron依赖
+1. 安装electron依赖（如果连接超时，使用镜像源安装）
 ```
  npm add --dev electron
 ```
+
 以下两个文件参考[官网快速入门教程](https://www.electronjs.org/zh/docs/latest/tutorial/quick-start)
 
 2. 添加electron入口文件 [main.js](main.js)
